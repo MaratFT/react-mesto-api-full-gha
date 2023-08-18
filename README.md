@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 62.84.122.167
+IP 62.84.122.167
 
 Frontend https://maratft007.nomoreparties.co
 

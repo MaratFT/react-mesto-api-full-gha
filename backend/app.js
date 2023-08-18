@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-
+// eslint-disable-next-line
 app.use((req, res, next) => {
   const { origin } = req.headers;
 
@@ -79,5 +79,6 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line
   console.log(`Приложение запущено на порту ${PORT}`);
 });
