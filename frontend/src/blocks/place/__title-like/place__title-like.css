@@ -1,0 +1,9 @@
+.place__title-like {
+  background-color: #fff;
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 25px 15px 25px 21px;
+  width: 246px;
+}

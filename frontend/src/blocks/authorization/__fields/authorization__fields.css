@@ -1,0 +1,11 @@
+.authorization__fields {
+  display: flex;
+  flex-direction: column;
+  max-width: 358px;
+}
+
+@media screen and (max-width: 767px) {
+  .authorization__fields {
+    max-width: 238px;
+  }
+}

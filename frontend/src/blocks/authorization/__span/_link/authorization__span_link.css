@@ -1,0 +1,9 @@
+.authorization__span_link {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 3px;
+}
+
+.authorization__span_link:hover {
+  opacity: 60%;
+}

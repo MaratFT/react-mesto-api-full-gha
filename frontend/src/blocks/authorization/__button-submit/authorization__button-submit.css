@@ -1,0 +1,30 @@
+.authorization__button-submit {
+  width: 358px;
+  height: 50px;
+  background: #fff;
+  color: #000;
+  border-radius: 2px;
+
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  margin-top: 186px;
+  margin-bottom: 15px;
+}
+
+.authorization__button-submit:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .authorization__button-submit {
+    width: 238px;
+    height: 46px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+}
