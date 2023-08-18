@@ -1,14 +1,14 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const CREATED_CODE = 201;
 
-const NotFoundError = require("../errors/not-found-err");
+const NotFoundError = require('../errors/not-found-err');
 
-const BadRequestError = require("../errors/bad-request-error");
-const ExistsDatabaseError = require("../errors/exists-database-error");
-const UnauthorizedError = require("../errors/unauthorized-error");
+const BadRequestError = require('../errors/bad-request-error');
+const ExistsDatabaseError = require('../errors/exists-database-error');
+const UnauthorizedError = require('../errors/unauthorized-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -26,22 +26,24 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         next(
           new NotFoundError(
-            `Пользователь по указанному _id (${userId}) не найден`
-          )
+            `Пользователь по указанному _id (${userId}) не найден`,
+          ),
         );
       }
       res.send(user);
     })
     .catch((err) => {
-      if (err.kind === "ObjectId") {
-        next(new BadRequestError("Некорректный запрос пользователя"));
+      if (err.kind === 'ObjectId') {
+        next(new BadRequestError('Некорректный запрос пользователя'));
       }
       next();
     });
 };
 
 module.exports.createUser = async (req, res, next) => {
-  const { email, name, about, avatar } = req.body;
+  const {
+    email, name, about, avatar,
+  } = req.body;
 
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
@@ -62,7 +64,7 @@ module.exports.createUser = async (req, res, next) => {
     });
   } catch (error) {
     if (error.code === 11000) {
-      next(new ExistsDatabaseError("Уже существует такой пользователь"));
+      next(new ExistsDatabaseError('Уже существует такой пользователь'));
     } else {
       next(error);
     }
@@ -75,7 +77,7 @@ module.exports.updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { runValidators: true, new: true }
+    { runValidators: true, new: true },
   )
     .then((user) => {
       // if (!user) {
@@ -86,11 +88,11 @@ module.exports.updateUser = (req, res, next) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         next(
           new BadRequestError(
-            "Переданы некорректные данные при обновлении профиля"
-          )
+            'Переданы некорректные данные при обновлении профиля',
+          ),
         );
       }
       next();
@@ -103,7 +105,7 @@ module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { runValidators: true, new: true }
+    { runValidators: true, new: true },
   )
     .then((user) => {
       // if (!user) {
@@ -114,11 +116,11 @@ module.exports.updateAvatar = (req, res, next) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         next(
           new BadRequestError(
-            "Переданы некорректные данные при обновлении аватара"
-          )
+            'Переданы некорректные данные при обновлении аватара',
+          ),
         );
       }
       next();
@@ -132,17 +134,17 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {
-          expiresIn: "7d",
-        }
+          expiresIn: '7d',
+        },
       );
 
       res.send({ token });
     })
     .catch((err) => {
       if (err) {
-        next(new UnauthorizedError("Неправильные почта или пароль"));
+        next(new UnauthorizedError('Неправильные почта или пароль'));
       }
       next();
     });

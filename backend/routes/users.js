@@ -1,9 +1,9 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
-const { celebrate, Joi } = require("celebrate");
-const auth = require("../middlewares/auth");
+const { celebrate, Joi } = require('celebrate');
+const auth = require('../middlewares/auth');
 
-const regex = require("../utils/regex");
+const regex = require('../utils/regex');
 
 const {
   getUsers,
@@ -13,21 +13,21 @@ const {
   updateAvatar,
   login,
   getUserCurrent,
-} = require("../controllers/users");
+} = require('../controllers/users');
 
 router.post(
-  "/signin",
+  '/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
       password: Joi.string().required().min(8),
     }),
   }),
-  login
+  login,
 );
 
 router.post(
-  "/signup",
+  '/signup',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
@@ -37,27 +37,27 @@ router.post(
       avatar: Joi.string().pattern(new RegExp(regex)),
     }),
   }),
-  createUser
+  createUser,
 );
 
 router.use(auth);
 
-router.get("/users", getUsers);
+router.get('/users', getUsers);
 
-router.get("/users/me", getUserCurrent);
+router.get('/users/me', getUserCurrent);
 
 router.get(
-  "/users/:userId",
+  '/users/:userId',
   celebrate({
     params: Joi.object().keys({
       userId: Joi.string().length(24).hex().required(),
     }),
   }),
-  getUser
+  getUser,
 );
 
 router.patch(
-  "/users/me",
+  '/users/me',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
@@ -65,18 +65,18 @@ router.patch(
     }),
   }),
 
-  updateUser
+  updateUser,
 );
 
 router.patch(
-  "/users/me/avatar",
+  '/users/me/avatar',
   celebrate({
     body: Joi.object().keys({
       avatar: Joi.string().pattern(new RegExp(regex)),
     }),
   }),
 
-  updateAvatar
+  updateAvatar,
 );
 
 module.exports = router;
