@@ -11,5 +11,7 @@
 IP 62.84.122.167
 
 Frontend https://maratft007.nomoreparties.co
+http://maratft007.nomoreparties.co
 
 Backend https://api.maratft007.nomoreparties.co
+http://api.maratft007.nomoreparties.co

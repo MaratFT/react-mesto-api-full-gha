@@ -1,6 +1,6 @@
 import checkResponse from './checkResponse';
 
-export const BASE_URL = 'http://api.maratft007.nomoreparties.co';
+export const BASE_URL = 'https://api.maratft007.nomoreparties.co';
 
 // export const BASE_URL = 'http://localhost:3001';
 

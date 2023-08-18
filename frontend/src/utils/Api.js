@@ -37,13 +37,10 @@ class Api {
         authorization: this._password,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(
-        {
-          name: name,
-          about: about
-        },
-        console.log({ name, about })
-      )
+      body: JSON.stringify({
+        name: name,
+        about: about
+      })
     }).then(res => this._serverResponse(res));
   }
   editAvatarUser(info) {
@@ -100,7 +97,7 @@ class Api {
 }
 
 export default new Api({
-  baseUrl: 'http://api.maratft007.nomoreparties.co',
+  baseUrl: 'https://api.maratft007.nomoreparties.co',
   // baseUrl: 'http://localhost:3001',
   headers: {
     authorization: `Bearer ${localStorage.getItem('jwt')}`,

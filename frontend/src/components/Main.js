@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 function Main(props) {
   const current = React.useContext(currentUserContext);
-  console.log(`Current: ${current.name}`);
+  // console.log(`Current: ${current.name}`);
 
   return (
     <main>

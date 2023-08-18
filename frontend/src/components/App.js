@@ -32,7 +32,7 @@ function App() {
 
   const checkToken = () => {
     const jwt = localStorage.getItem('jwt');
-    console.log(`checkToken: ${jwt}`);
+    // console.log(`checkToken: ${jwt}`);
     if (jwt) {
       auth
         .getContent(jwt)
