@@ -16,6 +16,19 @@ function InfoTooltip(props) {
         ) : (
           <h2 className="popup__tooltip-title">Что-то пошло не так! Попробуйте ещё раз.</h2>
         )}
+
+        {/* {props.loggedIn ? (
+          <img className="popup__tooltip-image" src={successImage} />
+        ) : (
+          <img className="popup__tooltip-image" src={errorImage} />
+        )}
+
+        {props.loggedIn ? (
+          <h2 className="popup__tooltip-title">Вы успешно авторизовались!</h2>
+        ) : (
+          <h2 className="popup__tooltip-title">Что-то пошло не так! Попробуйте ещё раз.</h2>
+        )} */}
+
         <button
           type="button"
           aria-label="Закрыть"

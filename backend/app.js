@@ -1,27 +1,28 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-const helmet = require('helmet');
-const { errors } = require('celebrate');
-const routesUsers = require('./routes/users');
-const routesCards = require('./routes/cards');
+const helmet = require("helmet");
+const { errors } = require("celebrate");
+const routesUsers = require("./routes/users");
+const routesCards = require("./routes/cards");
 
-const errorHandler = require('./middlewares/error-handler');
+const errorHandler = require("./middlewares/error-handler");
 
-const NotFoundError = require('./errors/not-found-err');
+const NotFoundError = require("./errors/not-found-err");
 
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const allowedCors = [
-  'http://localhost:3000',
-  'http://maratft007.nomoreparties.co',
-  'https://maratft007.nomoreparties.co',
+  "http://localhost:3000",
+  "http://maratft007.nomoreparties.co",
+  "https://maratft007.nomoreparties.co",
 ];
 
-const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { PORT = 3001, DB_URL = "mongodb://127.0.0.1:27017/mestodb" } =
+  process.env;
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
@@ -42,15 +43,15 @@ app.use((req, res, next) => {
   const { origin } = req.headers;
 
   const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+  const requestHeaders = req.headers["access-control-request-headers"];
 
   if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
+    res.header("Access-Control-Allow-Origin", origin);
   }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
+  if (method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
+    res.header("Access-Control-Allow-Headers", requestHeaders);
 
     return res.end();
   }
@@ -58,18 +59,18 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/crash-test', () => {
+app.get("/crash-test", () => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error("Сервер сейчас упадёт");
   }, 0);
 });
 
-app.use('/', routesUsers);
+app.use("/", routesUsers);
 
-app.use('/', routesCards);
+app.use("/", routesCards);
 
-app.use('*', (req, res, next) => {
-  next(new NotFoundError('Маршрут не найден'));
+app.use("*", (req, res, next) => {
+  next(new NotFoundError("Маршрут не найден"));
 });
 
 app.use(errorLogger);

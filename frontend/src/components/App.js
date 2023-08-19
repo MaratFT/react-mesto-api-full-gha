@@ -28,11 +28,18 @@ function App() {
   const [infoTooltipPopupOpen, setInfoTooltipPopupOpen] = React.useState(false);
   const [registration, setRegistration] = React.useState(true);
 
+  // const [LoggedInPopupOpen, setLoggedInPopupOpen] = React.useState(false);
+
+  // const current = React.useContext(currentUserContext);
+
+  const [email, setEmail] = React.useState('');
+
   const navigate = useNavigate();
 
-  const checkToken = () => {
+  const checkToken = React.useCallback(() => {
     const jwt = localStorage.getItem('jwt');
     // console.log(`checkToken: ${jwt}`);
+
     if (jwt) {
       auth
         .getContent(jwt)
@@ -48,13 +55,14 @@ function App() {
           setLoggedIn(false);
           console.error(error);
         });
+      return;
     }
-  };
+  }, [navigate]);
 
   React.useEffect(() => {
     checkToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [checkToken]);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -81,6 +89,10 @@ function App() {
   function handleInfoTooltip() {
     setInfoTooltipPopupOpen(true);
   }
+
+  // function handleLoggedIn() {
+  //   setLoggedInPopupOpen(true);
+  // }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -194,13 +206,25 @@ function App() {
                 />
               }
             ></Route>
-            <Route path="/sign-in" element={<Login setLoggedIn={setLoggedIn} />}></Route>
+            <Route
+              path="/sign-in"
+              element={
+                <Login
+                  email={email}
+                  setEmail={setEmail}
+                  setLoggedIn={setLoggedIn}
+                  setUserData={setUserData}
+                />
+              }
+            ></Route>
           </Routes>
 
           <InfoTooltip
             isOpen={infoTooltipPopupOpen}
+            // isOpenLoggedIn={LoggedInPopupOpen}
             onClose={closeAllPopups}
             registration={registration}
+            // loggedIn={loggedIn}
           />
 
           <EditProfilePopup

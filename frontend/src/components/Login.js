@@ -3,13 +3,13 @@ import React from 'react';
 import * as auth from '../utils/auth';
 
 function Login(props) {
-  const [email, setEmail] = React.useState('');
+  const [emailValue, setEmailValue] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const navigate = useNavigate();
 
   function handleEmailChange(e) {
-    setEmail(e.target.value);
+    setEmailValue(e.target.value);
   }
 
   function handlePasswordChange(e) {
@@ -21,11 +21,15 @@ function Login(props) {
     e.preventDefault();
 
     auth
-      .authorize(email, password)
+      .authorize(emailValue, password)
       .then(data => {
         localStorage.setItem('jwt', data.token);
+        console.log(data.token);
         props.setLoggedIn(true);
+        // props.setEmail(data.email);
+        props.setUserData(emailValue);
         navigate('/');
+        return;
       })
       .catch(error => {
         console.error(error);
@@ -45,7 +49,7 @@ function Login(props) {
           required
           minLength="2"
           maxLength="40"
-          value={email || ''}
+          value={emailValue || ''}
           onChange={handleEmailChange}
         />
         <input

@@ -12,7 +12,9 @@ function Header(props) {
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип Место " />
       <div className="header__nav">
-        {location.pathname == '/' && <p className="header__email">{props.userData.email}</p>}
+        {location.pathname == '/' && props.loggedIn && (
+          <p className="header__email">{props.userData.email}</p>
+        )}
         {location.pathname == '/' && (
           <Link className="header__exit" onClick={signOut} to="/sign-in">
             Выйти
