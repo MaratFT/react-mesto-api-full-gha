@@ -24,9 +24,7 @@ function Login(props) {
       .authorize(emailValue, password)
       .then(data => {
         localStorage.setItem('jwt', data.token);
-        console.log(data.token);
         props.setLoggedIn(true);
-        // props.setEmail(data.email);
         props.setUserData(emailValue);
         navigate('/');
         return;
